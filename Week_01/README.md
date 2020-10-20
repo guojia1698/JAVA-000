@@ -1,6 +1,9 @@
 学习笔记
-1.字节码 Java Bytecode由单字节byte的指令组成，理论上最多支持256个操作码
+
+1.字节码 
+Java Bytecode由单字节byte的指令组成，理论上最多支持256个操作码
 2.类加载
+
 加载：找Class文件，获取二进制classfile格式的字节流
 验证：验证格式、依赖
 准备：静态字段、方法表
@@ -9,6 +12,7 @@
 使用
 卸载
 3.类加载器
+
 启动类加载器BootstrapClassLoader
 扩展类加载器ExtClassLoader
 应用类加载器AppClassLoader
