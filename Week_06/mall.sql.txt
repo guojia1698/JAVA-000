@@ -1,0 +1,77 @@
+-- auto-generated definition
+create table t_user
+(
+    user_id     bigint auto_increment
+        primary key,
+    username    varchar(255) null comment '用户名',
+    password    varchar(255) null comment '密码',
+    nickname    varchar(255) null comment '昵称',
+    phone       varchar(64)  null comment '手机号',
+    sex         int          null comment '性别',
+    create_time datetime     null comment '创建时间',
+    update_time datetime     null comment '修改时间'
+); comment '用户表' 
+
+
+
+
+-- auto-generated definition
+create table t_order
+(
+    order_id      bigint auto_increment comment '订单id'
+        primary key,
+    order_no      varchar(64)    null comment '订单编号',
+    user_id       bigint         not null comment '用户id',
+    business_id   bigint         not null comment '商家id',
+    pay_amount    decimal(10, 2) null comment '应付金额',
+    order_status  int            null comment '订单状态：0->待付款;1->已完成;2->已关闭;3->无效订单',
+    note          varchar(255)   null comment '订单备注',
+    delete_status int default 0  not null comment '删除状态：0->未删除;1->已删除',
+    payment_time  datetime       null comment '支付时间',
+    update_time   datetime       null comment '修改时间',
+    create_time   datetime       null comment '创建时间'
+)
+    comment '订单表' charset = utf8;
+
+-- auto-generated definition
+create table t_order_detail
+(
+    id            bigint auto_increment comment 'ID'
+        primary key,
+    order_id      bigint         default 0    not null comment '订单ID',
+    product_no    varchar(255)   default ''   not null comment '商品编号',
+    product_name  varchar(255)   default ''   not null comment '商品名称',
+    product_price decimal(10, 2) default 0.00 not null comment '商品销售价',
+    amount        int            default 0    not null comment '购买数量'
+)
+    comment '订单详情表' charset = utf8;
+
+create index fk_order_id
+    on t_order_detail (order_id);
+
+
+-- auto-generated definition
+create table t_product
+(
+    product_id            bigint auto_increment
+        primary key,
+    product_name          varchar(255)   not null,
+    product_no            varchar(64)    null comment '商品编号',
+    business_id           bigint         not null comment '商家id',
+    product_category_name varchar(255)   null comment '商品分类名称',
+    sale                  int            null comment '销量',
+    price                 decimal(10, 2) null comment '价格',
+    description           varchar(255)   null comment '商品简述',
+    pic                   varchar(128)   null comment '图片路径',
+    sku                   int            null comment '库存',
+    sku_low_stock         int            null comment '库存预警值',
+    unit                  varchar(16)    null comment '单位',
+    detail_title          varchar(255)   null comment '详情标题',
+    detail_desc           varchar(128)   null comment '详情页面路径',
+    delete_status         int            null comment '删除状态：1-已删除 0-未删除;',
+    publish_status        int            null comment '上架状态：1->上架  0->下架; ',
+    update_time           datetime       null comment '修改时间',
+    create_time           datetime       null comment '上架时间'
+)
+    comment '商品表' charset = utf8;
+
