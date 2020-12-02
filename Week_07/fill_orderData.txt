@@ -1,0 +1,14 @@
+create
+    definer = root@localhost procedure CREATEORDERDATA()
+BEGIN
+DECLARE variable bigint;
+declare  i bigint;
+SET variable=10;
+SET i=1;
+while i < 1000000 DO
+    insert into  mall.t_order(order_id, order_no, user_id, business_id, pay_amount, order_status, note, delete_status, payment_time, update_time, create_time)
+values(variable,variable,variable,variable,variable,variable,variable,variable,sysdate(),sysdate(),sysdate());
+SET i = i +1;
+SET variable = variable =1;
+END WHILE;
+END;
