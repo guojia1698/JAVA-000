@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="week0802.week0802.mappers.OrderMapper" >
+    <sql id="Base_Column_List" >
+            order_id
+    </sql>
+
+    <insert id="insertOne" parameterType="week0802.week0802.models.Order">
+        INSERT INTO  t_order(order_no, user_id, business_id, pay_amount, order_status, note, delete_status, payment_time, update_time, create_time)
+        VALUES
+            (#{order_no},#{user_id},#{business_id},#{pay_amount},#{order_status},#{note},#{delete_status},sysdate(),sysdate(),sysdate())
+    </insert>
+
+    <delete id="deleteData">
+        delete from t_order where order_id = #{id}
+    </delete>
+
+    <update id="update" parameterType="week0802.week0802.models.Order">
+        UPDATE t_order
+        SET
+        <trim suffixOverrides="," suffix="WHERE id = #{id}">
+            <if test="order_id != null">order_id = #{order_id},</if>
+            <if test="user_id != null">user_id = #{user_id},</if>
+        </trim>
+    </update>
+
+    <select id="query" resultType="HashMap" parameterType="HashMap">
+        select <include refid="Base_Column_List" /> from t_order
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="order_id != null">
+                order_id = #{order_id}
+            </if>
+            <if test="user_id != null">
+                and user_id = #{user_id}
+            </if>
+        </trim>
+    </select>
+
+</mapper>
